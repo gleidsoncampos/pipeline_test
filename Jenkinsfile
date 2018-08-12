@@ -19,7 +19,7 @@ node {
    sh "echo \"..... Build Phase Started :: Compiling Source Code :: ......\""
    sh "cd /root/.jenkins/workspace/teste-pipe/java_web_code"
    sh "sleep 6;"
-   sh "mvn install"
+   sh "mvn install -f  /root/.jenkins/workspace/teste-pipe/java_web_code/pom.xml"
 
    stage 'test'
    parallel 'test': {
