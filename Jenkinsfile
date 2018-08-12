@@ -22,7 +22,7 @@ node {
 
    stage 'test'
    parallel 'test': {
-     sh "mvn test; sleep 2;"
+     sh "echo \"mvn test"; sleep 2;"
    }, 'verify': {
      sh "echo \"\""
      sh "echo \"..... Test Phase Started :: Testing via Automated Scripts :: ......\""
