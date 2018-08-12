@@ -49,7 +49,7 @@ node {
 
    //sh "CONTAINER=devops_pipeline_demo"
  
-   sh "RUNNING=$(sudo docker inspect --format=\"{{ .State.Running }}\" ${CONTAINER} 2> /dev/null)"
+   sh "RUNNING=\$(sudo docker inspect --format=\"{{ .State.Running }}\" ${CONTAINER} 2> /dev/null)"
 
    sh if [ $? -eq 1 ]; then
      sh "echo \"\'${CONTAINER}\' does not exist.\""
