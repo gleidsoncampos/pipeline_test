@@ -17,17 +17,17 @@ node {
    sh "echo \"*******-Starting CI CD Pipeline Tasks-*******\""
    sh "echo \"\""
    sh "echo \"..... Build Phase Started :: Compiling Source Code :: ......\""
-   sh "cd java_web_code"
+   //sh "cd java_web_code"
    sh "mvn install"
 
    stage 'test'
    parallel 'test': {
-     sh 'echo "write your test code here"; sleep 6;'
-   }, 'verify': {
      sh "echo \"\""
      sh "echo \"..... Test Phase Started :: Testing via Automated Scripts :: ......\""
      sh "cd ../integration-testing/"
      sh "mvn clean verify -P integration-test"
+   }, 'verify': {
+       sh 'echo \"write your test code here\"; sleep 6;'
    }
 
    stage 'archive'
@@ -70,6 +70,6 @@ node {
 
    stage 'deploy Production'
    input 'Proceed?'
-   sh 'echo "write your deploy code here"; sleep 6;'
+   sh 'echo \"write your deploy code here\"; sleep 6;'
    archive 'target/*.jar'
 }
