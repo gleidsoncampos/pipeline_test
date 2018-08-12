@@ -17,7 +17,7 @@ node {
    sh "echo \"*******-Starting CI CD Pipeline Tasks-*******\""
    sh "echo \"\""
    sh "echo \"..... Build Phase Started :: Compiling Source Code :: ......\""
-   sh "cd /root/.jenkins/workspace/teste-pipe/java_web_code"
+   //sh "cd /root/.jenkins/workspace/teste-pipe/java_web_code"
    sh "sleep 6;"
    sh "mvn install -f  /root/.jenkins/workspace/teste-pipe/java_web_code/pom.xml"
 
@@ -25,8 +25,8 @@ node {
    parallel 'test': {
      sh "echo \"\""
      sh "echo \"..... Test Phase Started :: Testing via Automated Scripts :: ......\""
-     sh "cd ../integration-testing/"
-     sh "mvn clean verify -P integration-test"
+     //sh "cd ../integration-testing/"
+     sh "cd /root/.jenkins/workspace/teste-pipe/ && mvn clean verify -P integration-test"
    }, 'verify': {
        sh 'echo \"write your test code here\"; sleep 6;'
    }
