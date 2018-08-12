@@ -52,8 +52,8 @@ node {
    sh "RUNNING=$(sudo docker inspect --format=\"{{ .State.Running }}\" $CONTAINER 2> /dev/null)"
 
    sh if [ $? -eq 1 ]; then
-     sh "echo \"'$CONTAINER' does not exist.\""
-   sh else
+     sh "echo \"\'$CONTAINER\' does not exist.\""
+   sh "else"
      sh "sudo docker rm -f $CONTAINER"
    sh "fi"
 
