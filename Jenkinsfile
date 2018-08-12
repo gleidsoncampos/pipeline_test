@@ -17,7 +17,8 @@ node {
    sh "echo \"*******-Starting CI CD Pipeline Tasks-*******\""
    sh "echo \"\""
    sh "echo \"..... Build Phase Started :: Compiling Source Code :: ......\""
-   sh "cd java_web_code"
+   sh "cd /root/.jenkins/workspace/teste-pipe/java_web_code"
+   sh "sleep 6;"
    sh "mvn install"
 
    stage 'test'
