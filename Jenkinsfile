@@ -9,7 +9,7 @@ node {
    // Get the maven tool.
    // ** NOTE: This 'mvn' maven tool must be configured
    // **       in the global configuration.
-   //def mvnHome = tool 'mvn'
+   def CONTAINER="devops_pipeline_demo"
 
    stage 'build'
    // set the version of the build artifact to the Jenkins BUILD_NUMBER so you can
@@ -47,14 +47,14 @@ node {
    sh "sudo docker build -t devops_pipeline_demo ."
 
 
-   sh "CONTAINER=devops_pipeline_demo"
+   //sh "CONTAINER=devops_pipeline_demo"
  
-   sh "RUNNING=$(sudo docker inspect --format=\"{{ .State.Running }}\" \$CONTAINER 2> /dev/null)"
+   sh "RUNNING=$(sudo docker inspect --format=\"{{ .State.Running }}\" $CONTAINER 2> /dev/null)"
 
    sh if [ $? -eq 1 ]; then
-     sh "echo \"\'\$CONTAINER\' does not exist.\""
+     sh "echo \"\'$CONTAINER\' does not exist.\""
    sh "else"
-     sh "sudo docker rm -f \$CONTAINER"
+     sh "sudo docker rm -f $CONTAINER"
    sh "fi"
 
     //run your container
