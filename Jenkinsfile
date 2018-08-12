@@ -1,59 +1,40 @@
-pipeline {
-    agent any
+node {
+   // Mark the code checkout 'stage'....
+   stage 'checkout'
 
-    stages {
-        stage('Build') {
-            steps {
-                echo "*******-Starting CI CD Pipeline Tasks-*******"
-                //#-BUILD
-                echo ""
-                echo "..... Build Phase Started :: Compiling Source Code :: ......"
-                cd java_web_code
-                mvn install
-            }
-        }
-        stage('Test') {
-            steps {
-                //#-BUILD (TEST)
-                echo ""
-                echo "..... Test Phase Started :: Testing via Automated Scripts :: ......"
-                cd ../integration-testing/
-                mvn clean verify -P integration-test
-            }
-        }
-        stage('Deploy') {
-            steps {
-                //#-POSTBUILD (PROVISIONING DEPLOYMENT)
-                echo ""
-                echo "..... Integration Phase Started :: Copying Artifacts :: ......"
-                cd java_web_code/
-                /bin/cp target/wildfly-spring-boot-sample-1.0.0.war ../docker/
-                echo ""
-                echo "..... Provisioning Phase Started :: Building Docker Container :: ......"
-                cd ../docker/
-                sudo docker build -t devops_pipeline_demo .
+   // Get some code from a GitHub repository
+   git url: 'https://github.com/kesselborn/jenkinsfile'
+   sh 'git clean -fdx; sleep 4;'
 
-                CONTAINER=devops_pipeline_demo
-                
-                RUNNING=$(sudo docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
+   // Get the maven tool.
+   // ** NOTE: This 'mvn' maven tool must be configured
+   // **       in the global configuration.
+   def mvnHome = tool 'mvn'
 
-                if [ $? -eq 1 ]; then
-                echo "'$CONTAINER' does not exist."
-                else
-                sudo docker rm -f $CONTAINER
-                fi
+   stage 'build'
+   // set the version of the build artifact to the Jenkins BUILD_NUMBER so you can
+   // map artifacts to Jenkins builds
+   sh "${mvnHome}/bin/mvn versions:set -DnewVersion=${env.BUILD_NUMBER}"
+   sh "${mvnHome}/bin/mvn package"
 
-                    //# run your container
-                    echo ""
-                    echo "..... Deployment Phase Started :: Building Docker Container :: ......"
-                    sudo docker run -d -p 8180:8080 --name devops_pipeline_demo devops_pipeline_demo
+   stage 'test'
+   parallel 'test': {
+     sh "${mvnHome}/bin/mvn test; sleep 2;"
+   }, 'verify': {
+     sh "${mvnHome}/bin/mvn verify; sleep 3"
+   }
+
+   stage 'archive'
+   archive 'target/*.jar'
+}
 
 
-                //#-Completion
-                echo "--------------------------------------------------------"
-                echo "View App deployed here: http://server-ip:8180/sample.txt"
-                echo "--------------------------------------------------------"
-            }
-        }
-    }
+node {
+   stage 'deploy Canary'
+   sh 'echo "write your deploy code here"; sleep 5;'
+
+   stage 'deploy Production'
+   input 'Proceed?'
+   sh 'echo "write your deploy code here"; sleep 6;'
+   archive 'target/*.jar'
 }
