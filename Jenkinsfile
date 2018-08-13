@@ -9,9 +9,6 @@ node {
    // Get the maven tool.
    // ** NOTE: This 'mvn' maven tool must be configured
    // **       in the global configuration.
-   def CONTAINER= "devops_pipeline_demo"
-   sh ("echo "+CONTAINER)
-   //println (CONTAINER+"OLHA")
 
    stage 'build'
    // set the version of the build artifact to the Jenkins BUILD_NUMBER so you can
@@ -39,6 +36,7 @@ node {
 
 
 node {
+   def CONTAINER= "devops_pipeline_demo"
    stage 'deploy Canary'
    sh "echo \"\""
    sh "echo \"..... Integration Phase Started :: Copying Artifacts :: ......\""
