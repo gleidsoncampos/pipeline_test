@@ -53,7 +53,7 @@ node {
    RUNNING=sh (script: "sudo docker inspect --format=\"{{ .State.Running }}\" devops_pipeline_demo", returnStdout: true).trim()
    
    if (RUNNING == "true") {
-       sh ("sudo docker rm -f" + "$CONTAINER" )
+       sh (script: "sudo docker rm -f" + $CONTAINER)
    } else {
        sh "echo \" devops_pipeline_demo does not exist.\""
    }
