@@ -50,7 +50,7 @@ node {
 
    //sh "CONTAINER=devops_pipeline_demo"
  
-   RUNNING=sh "sudo docker inspect --format=\"{{ .State.Running }}\" devops_pipeline_demo"
+   RUNNING=sh (script: "sudo docker inspect --format=\"{{ .State.Running }}\" devops_pipeline_demo", returnStdout: true).trim()
    
    println (RUNNING + "OLHA")
    if (RUNNING == true) {
