@@ -10,6 +10,7 @@ node {
    // ** NOTE: This 'mvn' maven tool must be configured
    // **       in the global configuration.
    def CONTAINER="devops_pipeline_demo"
+   println (CONTAINER+"OLHA")
 
    stage 'build'
    // set the version of the build artifact to the Jenkins BUILD_NUMBER so you can
@@ -18,7 +19,7 @@ node {
    sh "echo \"\""
    sh "echo \"..... Build Phase Started :: Compiling Source Code :: ......\""
    //sh "cd /root/.jenkins/workspace/teste-pipe/java_web_code"
-   sh "sleep 6;"
+   //sh "sleep 6;"
    sh "mvn install -f  /root/.jenkins/workspace/teste-pipe/java_web_code/pom.xml"
 
    stage 'test'
@@ -53,7 +54,7 @@ node {
    RUNNING=sh (script: "sudo docker inspect --format=\"{{ .State.Running }}\" devops_pipeline_demo", returnStdout: true).trim()
    
    if (RUNNING == "true") {
-       sh (script: "sudo docker rm -f" + $CONTAINER)
+       sh (script: "sudo docker rm -f devops_pipeline_demo")
    } else {
        sh "echo \" devops_pipeline_demo does not exist.\""
    }
