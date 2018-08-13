@@ -50,9 +50,15 @@ node {
 
  
    RUNNING= sh (
-       script: "sudo docker inspect --format=\"{{ .State.Running }}\" "+CONTAINER + "" || true, 
-       returnStdout: true
-    ).trim()
+        try {
+            script: "sudo docker inspect --format=\"{{ .State.Running }}\" "+CONTAINER + " || true", 
+            returnStdout: true
+            ).trim()
+        } catch(Exception e) {
+            logger("exception on something occurred "+e,e)
+            System.exit(0)
+        }
+            
    
    if (RUNNING == "true") {
        sh ("sudo docker rm -f "+CONTAINER)
