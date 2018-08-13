@@ -1,4 +1,7 @@
 node {
+   stage 'adjust env'
+   sh 'yum install -y git maven docker'
+
    // Mark the code checkout 'stage'....
    stage 'checkout'
 
