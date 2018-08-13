@@ -61,7 +61,9 @@ node {
    
    if (RUNNING == "true") {
        sh ("sudo docker rm -f "+CONTAINER)
-   } 
+   } else {
+       println ("Container " +CONTAINER+ " does not exist")
+   }
 
     //run your container
     sh "echo \"\""
