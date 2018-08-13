@@ -52,6 +52,7 @@ node {
  
    RUNNING=sh "sudo docker inspect --format=\"{{ .State.Running }}\" devops_pipeline_demo"
    
+   println (RUNNING + "OLHA")
    if (RUNNING == true) {
        sh ("sudo docker rm -f" + CONTAINER + "")
    } else {
