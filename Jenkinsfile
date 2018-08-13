@@ -9,7 +9,8 @@ node {
    // Get the maven tool.
    // ** NOTE: This 'mvn' maven tool must be configured
    // **       in the global configuration.
-   def CONTAINER="devops_pipeline_demo"
+   def CONTAINER= "devops_pipeline_demo"
+   sh "echo "+$CONTAINER
    //println (CONTAINER+"OLHA")
 
    stage 'build'
