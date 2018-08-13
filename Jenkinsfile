@@ -60,7 +60,7 @@ node {
     //run your container
     sh "echo \"\""
 	sh "echo \"..... Deployment Phase Started :: Building Docker Container :: ......\""
-	sh "sudo docker run -d -p 8180:8080 --name" +CONTAINER + " "+CONTAINER 
+	sh "sudo docker run -d -p 8180:8080 --name " +CONTAINER + " "+CONTAINER 
 
 
 //#-Completion
