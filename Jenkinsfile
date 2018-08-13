@@ -50,7 +50,7 @@ node {
 
    //sh "CONTAINER=devops_pipeline_demo"
  
-   RUNNING= (sh"sudo docker inspect --format=\"{{ .State.Running }}\" devops_pipeline_demo")
+   RUNNING=sh "sudo docker inspect --format=\"{{ .State.Running }}\" devops_pipeline_demo"
    
    if (RUNNING == true) {
        sh ("sudo docker rm -f" + CONTAINER + "")
