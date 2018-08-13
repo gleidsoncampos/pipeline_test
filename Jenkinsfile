@@ -26,7 +26,7 @@ node {
      sh "echo \"\""
      sh "echo \"..... Test Phase Started :: Testing via Automated Scripts :: ......\""
      //sh "cd ../integration-testing/"
-     sh "cd /root/.jenkins/workspace/teste-pipe/integration-test/ && mvn clean verify -P integration-test"
+     sh "cd /root/.jenkins/workspace/teste-pipe/ && mvn clean verify -P integration-testing"
    }, 'verify': {
        sh 'echo \"write your test code here\"; sleep 6;'
    }
