@@ -50,7 +50,7 @@ node {
 
  
    RUNNING= sh (
-       script: "set -e && sudo docker inspect --format=\"{{ .State.Running }}\" "+CONTAINER + "", 
+       script: "sudo docker inspect --format=\"{{ .State.Running }}\" "+CONTAINER + "" || true, 
        returnStdout: true
     ).trim()
    
