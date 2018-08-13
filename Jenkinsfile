@@ -54,6 +54,8 @@ node {
        returnStdout: true
     ).trim()
    
+   println (RUNNING+"mermao")
+
    if (RUNNING == "true") {
        sh ("sudo docker rm -f "+CONTAINER)
    } else {
