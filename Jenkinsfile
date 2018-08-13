@@ -52,11 +52,11 @@ node {
  
    sh "RUNNING=\$(sudo docker inspect --format=\"{{ .State.Running }}\" devops_pipeline_demo 2> /dev/null)"
 
-   sh "if [ \$? -eq 1 ]; then"
-     sh "echo \" devops_pipeline_demo does not exist.\""
-   sh "else"
-     sh "sudo docker rm -f devops_pipeline_demo"
-   sh "fi"
+   sh "if [ \$? -eq 1 ]; then
+      echo \" devops_pipeline_demo does not exist.\"
+   else
+     sudo docker rm -f devops_pipeline_demo
+   fi"
 
     //run your container
     sh "echo \"\""
