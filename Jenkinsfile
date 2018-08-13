@@ -50,17 +50,13 @@ node {
 
  
    RUNNING= sh (
-       script: "sudo docker inspect --format=\"{{ .State.Running }}\" "+CONTAINER + "", 
+       script: "set -e && sudo docker inspect --format=\"{{ .State.Running }}\" "+CONTAINER + "", 
        returnStdout: true
     ).trim()
    
-   println (RUNNING+"mermao")
-
    if (RUNNING == "true") {
        sh ("sudo docker rm -f "+CONTAINER)
-   } else {
-       sh "echo \"Container " +CONTAINER + "does not exist.\""
-   }
+   } 
 
     //run your container
     sh "echo \"\""
