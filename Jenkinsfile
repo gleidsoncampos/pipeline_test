@@ -48,15 +48,14 @@ node {
    sh "sudo docker build -t " +CONTAINER+ " /root/.jenkins/workspace/teste-pipe/docker/"
 
 
- 
-   RUNNING= sh (
         try {
-            script: "sudo docker inspect --format=\"{{ .State.Running }}\" "+CONTAINER + " || true", 
+            RUNNING = sh ( script: "sudo docker inspect --format=\"{{ .State.Running }}\" "+CONTAINER + " || true", 
             returnStdout: true
             ).trim()
         } catch(Exception e) {
             logger("exception on something occurred "+e,e)
             System.exit(0)
+            RUNNING='false'
         }
             
    
