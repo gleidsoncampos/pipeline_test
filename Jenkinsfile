@@ -38,14 +38,14 @@ node {
 
 node {
    stage 'deploy Canary'
-   sh "echo \""
+   sh "echo \"\""
    sh "echo \"..... Integration Phase Started :: Copying Artifacts :: ......\""
-   sh "cd java_web_code/"
-   sh "/bin/cp target/wildfly-spring-boot-sample-1.0.0.war ../docker/"
+   //sh "cd java_web_code/"
+   sh "/bin/cp /root/.jenkins/workspace/teste-pipe/java_web_code/target/wildfly-spring-boot-sample-1.0.0.war /root/.jenkins/workspace/teste-pipe/docker/"
    sh "echo \"\""
    sh "echo \"..... Provisioning Phase Started :: Building Docker Container :: ......\""
-   sh "cd ../docker/"
-   sh "sudo docker build -t devops_pipeline_demo ."
+   //sh "cd ../docker/"
+   sh "sudo docker build -t /root/.jenkins/workspace/teste-pipe/docker/devops_pipeline_demo ."
 
 
    //sh "CONTAINER=devops_pipeline_demo"
