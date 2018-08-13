@@ -45,7 +45,7 @@ node {
    sh "echo \"\""
    sh "echo \"..... Provisioning Phase Started :: Building Docker Container :: ......\""
    //sh "cd ../docker/"
-   sh "sudo docker build -t /root/.jenkins/workspace/teste-pipe/docker/devops_pipeline_demo ."
+   sh "sudo docker build -t devops_pipeline_demo /root/.jenkins/workspace/teste-pipe/docker/"
 
 
    //sh "CONTAINER=devops_pipeline_demo"
