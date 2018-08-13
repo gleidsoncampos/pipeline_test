@@ -49,10 +49,10 @@ node {
 
 
  
-   RUNNING=sh (script: "sudo docker inspect --format=\"{{ .State.Running }}\""+CONTAINER, returnStdout: true.trim()
+   RUNNING=sh (script: "sudo docker inspect --format=\"{{ .State.Running }}\" "+CONTAINER, returnStdout: true.trim()
    
    if (RUNNING == "true") {
-       sh ("sudo docker rm -f "+CONTAINER")
+       sh ("sudo docker rm -f "+CONTAINER)
    } else {
        sh "echo \"Container" +CONTAINER + "does not exist.\""
    }
